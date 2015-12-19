@@ -71,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         // App code
+                        Intent intent = new Intent();
+                        intent.setClass(MainActivity.this,PaginaInicial.class);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -124,10 +127,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     protected void onStart() {
         super.onStart();
 
-        //GOOGLE
-        if (!mResolvingError) {  // more about this later
-            mGoogleApiClient.connect();
-        }
+
     }
 
     //METODOS INTEGRACAO GOOGLE
@@ -191,9 +191,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
     private void signIn() {
-
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        //GOOGLE
+        if (!mResolvingError) {  // more about this later
+            mGoogleApiClient.connect();
+        }
+        //Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        //startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
