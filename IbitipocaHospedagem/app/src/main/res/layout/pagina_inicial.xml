@@ -1,15 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnTurista"
+        android:src="@drawable/turista"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/background_light" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnComerciante"
+        android:src="@drawable/casa"
+        android:layout_alignTop="@+id/btnTurista"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@android:color/background_light" />
+
     <TextView
-        android:layout_width="349dp"
-        android:layout_height="0dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Página Inicial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Comerciante"
         android:id="@+id/textView2"
-        android:layout_weight="0.05"
-        android:textSize="24dp" />
-</LinearLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnComerciante"
+        android:layout_alignRight="@+id/btnComerciante"
+        android:layout_alignEnd="@+id/btnComerciante"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Turista"
+        android:id="@+id/textView3"
+        android:layout_alignRight="@+id/btnTurista"
+        android:layout_alignEnd="@+id/btnTurista"
+        android:layout_below="@+id/btnTurista"
+        android:layout_alignLeft="@+id/btnTurista"
+        android:layout_alignStart="@+id/btnTurista"
+        android:textAlignment="center" />
+
+</RelativeLayout>

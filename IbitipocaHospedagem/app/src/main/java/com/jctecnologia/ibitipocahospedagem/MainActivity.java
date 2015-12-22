@@ -66,6 +66,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         callbackManager = CallbackManager.Factory.create();
 
+        if(mGoogleApiClient.isConnected()){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this,PaginaInicial.class);
+            startActivity(intent);
+        }
+
+
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
                     @Override
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                     }
                 });
 
+
     }
 
     @Override
@@ -98,6 +106,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
+        }
+
+        if(requestCode == 1001){
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this,PaginaInicial.class);
+            startActivity(intent);
         }
     }
 
@@ -171,7 +185,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle bundle) {
-
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this,PaginaInicial.class);
+        startActivity(intent);
     }
 
     @Override
