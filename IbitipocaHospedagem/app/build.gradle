@@ -1,11 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    compileOptions {
+        encoding "UTF-8"
+
+    }
+
     signingConfigs {
         config {
             keyAlias 'IbitiKey'
             keyPassword 'limaduarte'
-            storeFile file('D:/ProjetosGit/IbitipocaHospedagem/app/Keys/pluslogin.jks')
+            "storeFile file('D:/ProjetosGit/IbitipocaHospedagem/app/Keys/pluslogin.jks')"
+            storeFile file('C:/ProjetosGit/IbitipocaHospedag/IbitipocaHospedagem/app/Keys/pluslogin.jks')
             storePassword 'limaduarte'
         }
     }
@@ -42,4 +49,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.facebook.android:facebook-android-sdk:4.8.2'
     compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+    compile 'com.google.code.gson:gson:2.3.1'
 }
