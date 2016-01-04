@@ -49,6 +49,7 @@ public class Turistas extends Activity {
     private TextView tvData;
     private ListView lvPessoas;
     private ProgressDialog dialog;
+    private ArrayAdapter<String> adpDados;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +71,7 @@ public class Turistas extends Activity {
         ImageLoader.getInstance().init(config); // Do it on Application start
 
         lvPessoas = (ListView)findViewById(R.id.lvPessoas);
+        adpDados = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 
     new JSONTask().execute("http://turismo.somee.com/Pessoas/Get");
 
@@ -87,7 +89,7 @@ public class Turistas extends Activity {
         protected List<Pessoa> doInBackground(String... params) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
-
+            List<Pessoa> pessoaList = new ArrayList<>();
             try {
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
@@ -105,12 +107,13 @@ public class Turistas extends Activity {
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray parentArray = parentObject.getJSONArray("Pessoas");
 
-                List<Pessoa> pessoaList = new ArrayList<>();
-
                 Gson gson = new Gson();
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
                     Pessoa pessoa = gson.fromJson(finalObject.toString(), Pessoa.class);
+
+                    adpDados.add(pessoa.getNome());
+
 //                    movieModel.setMovie(finalObject.getString("movie"));
 //                    movieModel.setYear(finalObject.getInt("year"));
 //                    movieModel.setRating((float) finalObject.getDouble("rating"));
@@ -131,7 +134,7 @@ public class Turistas extends Activity {
                     // adding the final object in the list
                     pessoaList.add(pessoa);
                 }
-                return pessoaList;
+                //return pessoaList;
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -151,18 +154,21 @@ public class Turistas extends Activity {
                     e.printStackTrace();
                 }
             }
-            return null;
+            return pessoaList;
         }
 
         @Override
         protected void onPostExecute(List<Pessoa> result) {
-            super.onPostExecute(result);
+          try{super.onPostExecute(result);
             dialog.dismiss();
-            PessoaAdapter adapter = new PessoaAdapter(getApplicationContext(), R.id.lvPessoas, result);
-            lvPessoas.setAdapter(adapter);
+            //PessoaAdapter adapter = new PessoaAdapter(getApplicationContext(), R.id.lvPessoas, result);
+            //lvPessoas.setAdapter(adapter);
             // TODO need to set data to the list
+              lvPessoas.setAdapter(adpDados);
+          }catch (Exception e){
+            e.printStackTrace();
+          }
         }
-
     }
 
     public class PessoaAdapter extends ArrayAdapter {
@@ -171,9 +177,9 @@ public class Turistas extends Activity {
         private int resource;
         private LayoutInflater inflater;
 
-        public PessoaAdapter(Context context, int resource, List<Pessoa> objects) {
-            super(context, resource, objects);
-            pessoaList = objects;
+        public PessoaAdapter(Context context, int resource, List<Pessoa> listPessoas) {
+            super(context, resource, listPessoas);
+            pessoaList = listPessoas;
             this.resource = resource;
             inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         }

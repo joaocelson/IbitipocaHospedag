@@ -37,7 +37,7 @@ public class PaginaInicial extends Activity {
         comerciante.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(PaginaInicial.this, Turistas.class);
+                intent.setClass(PaginaInicial.this, Comerciantes.class);
                 startActivity(intent);
             }
         });
